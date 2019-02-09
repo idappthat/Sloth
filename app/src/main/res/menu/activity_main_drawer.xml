@@ -11,4 +11,23 @@
 
     </group>
 
+    <item android:title="@string/nav_separator_name">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_folderA"
+                    android:title="Folder A" />
+                <item
+                    android:id="@+id/nav_folderB"
+                    android:title="Folder B" />
+                <item
+                    android:id="@+id/nav_folderC"
+                    android:title="Folder C" />
+                <item
+                    android:id="@+id/nav_folderD"
+                    android:title="Folder D" />
+            </group>
+        </menu>
+    </item>
+
 </menu>

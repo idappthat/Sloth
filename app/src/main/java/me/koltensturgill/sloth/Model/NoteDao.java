@@ -26,4 +26,7 @@ public interface NoteDao {
     LiveData<List<Note>> getAllNotes();
 
     // TODO: Update
+
+    @Query("SELECT * from notes_table WHERE id=:input")
+    LiveData<List<Note>> getNoteByTag(int input);
 }
