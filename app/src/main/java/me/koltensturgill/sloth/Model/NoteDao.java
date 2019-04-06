@@ -22,7 +22,9 @@ public interface NoteDao {
 
     // Get all the notes stored in SQLite db by DESC id
     // This uses LiveData, more here: https://developer.android.com/topic/libraries/architecture/lifecycle
-    @Query("SELECT * from notes_table ORDER BY id DESC")
+    String c = "created_at";
+    @Query("SELECT * from notes_table ORDER BY id DESC" +
+            "")
     LiveData<List<Note>> getAllNotes();
 
     // TODO: Update

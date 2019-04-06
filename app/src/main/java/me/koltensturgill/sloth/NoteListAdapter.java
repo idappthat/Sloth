@@ -47,7 +47,7 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteVi
         // Bind our items to the text views
         if(mNotes != null){
             Note curr = mNotes.get(position);
-            holder.noteTitleView.setText(curr.getTitle());
+            holder.noteTitleView.setText(Converter.dateToString(curr.getCreated_at()));
             holder.noteBodyView.setText(curr.getBody());
         } else {
             holder.noteBodyView.setText("Add a new note first!");
