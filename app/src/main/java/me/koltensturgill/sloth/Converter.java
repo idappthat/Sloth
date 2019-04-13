@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -13,8 +14,8 @@ import java.util.Locale;
 public class Converter
 {
 
-    private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("E MMM dd HH:mm:ss z yyyy", Locale.US);
-
+//    private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("E MMM dd HH:mm:ss z yyyy", Locale.US);
+    private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy MM dd HH:mm:ss E z");
     @TypeConverter
     public static Date stringToDate(String date)
     {
@@ -32,7 +33,8 @@ public class Converter
 
             catch (ParseException e)
             {
-                return new Date();
+                //return new Date();
+                return null;
             }
         }
     }
@@ -46,7 +48,7 @@ public class Converter
         }
         else
         {
-            return date.toString();
+            return simpleDateFormat.format(date);
         }
     }
 }

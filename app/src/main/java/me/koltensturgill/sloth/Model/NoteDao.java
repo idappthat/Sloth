@@ -8,6 +8,8 @@ import android.arch.persistence.room.Query;
 
 import java.util.List;
 
+import me.koltensturgill.sloth.Utils;
+
 // Define our interface for the database operations
 @Dao
 public interface NoteDao {
@@ -22,10 +24,18 @@ public interface NoteDao {
 
     // Get all the notes stored in SQLite db by DESC id
     // This uses LiveData, more here: https://developer.android.com/topic/libraries/architecture/lifecycle
-    String c = "created_at";
-    @Query("SELECT * from notes_table ORDER BY id DESC" +
+
+    @Query("SELECT * from notes_table ORDER BY id ASC" +
             "")
     LiveData<List<Note>> getAllNotes();
+
+    @Query("SELECT * from notes_table ORDER BY created_at ASC " +
+            "")
+    LiveData<List<Note>> getAllNotesByDateAsc();
+
+    @Query("SELECT * from notes_table ORDER BY created_at DESC " +
+            "")
+    LiveData<List<Note>> getAllNotesByDateDesc();
 
     // TODO: Update
 }

@@ -73,13 +73,45 @@ public class MainActivity extends AppCompatActivity
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+
         // Create an observer, and update our adapter
-        notesViewModel.getAllNotes().observe(this, new Observer<List<Note>>() {
-            @Override
-            public void onChanged(@Nullable List<Note> notes) {
-                adapter.setNotes(notes);
+
+        if (Utils.getSorter().equals("id"))
+        {
+            notesViewModel.getAllNotes().observe(this, new Observer<List<Note>>()
+            {
+                @Override
+                public void onChanged(@Nullable List<Note> notes)
+                {
+                    adapter.setNotes(notes);
+                }
+            });
+        }
+        else if (Utils.getSorter().equals("created_at"))
+        {
+            if (Utils.getOrder().equals("ASC"))
+            {
+                notesViewModel.getAscDateAllNotes().observe(this, new Observer<List<Note>>()
+                {
+                    @Override
+                    public void onChanged(@Nullable List<Note> notes)
+                    {
+                        adapter.setNotes(notes);
+                    }
+                });
             }
-        });
+            else
+            {
+                notesViewModel.getDescDateAllNotes().observe(this, new Observer<List<Note>>()
+                {
+                    @Override
+                    public void onChanged(@Nullable List<Note> notes)
+                    {
+                        adapter.setNotes(notes);
+                    }
+                });
+            }
+        }
     }
 
     @Override

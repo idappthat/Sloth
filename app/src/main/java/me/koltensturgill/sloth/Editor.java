@@ -34,7 +34,6 @@ public class Editor extends AppCompatActivity {
         buttonBar.setAdapter(rvAdapter);
         buttonBar.setLayoutManager(new LinearLayoutManager(this,
                 LinearLayoutManager.HORIZONTAL,false));
-
         }
 
     @Override

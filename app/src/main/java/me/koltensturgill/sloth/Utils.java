@@ -18,6 +18,8 @@ public class Utils
 {
     private static int theme = R.style.AppTheme;
     private static boolean switchCheck = false;
+    private static String sorter = "created_at";
+    private static String order = "DESC";
 
     public static void setThemeToActivity(Activity activity, boolean isMain)
     {
@@ -54,4 +56,23 @@ public class Utils
         switchCheck = check;
     }
 
+    public static String getSorter()
+    {
+        return sorter;
+    }
+
+    public static String getOrder()
+    {
+        return order;
+    }
+
+    public static void setSorter(String sorter)
+    {
+        Utils.sorter = sorter;
+    }
+
+    public static void setOrder(String order)
+    {
+        Utils.order = order;
+    }
 }
