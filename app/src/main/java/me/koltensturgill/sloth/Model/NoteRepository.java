@@ -10,6 +10,7 @@ public class NoteRepository {
     // Member variables
     private NoteDao mNoteDao;
     private LiveData<List<Note>> mAllNotes;
+    private LiveData<List<Note>> mAllNotesDesc;
     private LiveData<List<Note>> ascDateAllNotes;
     private LiveData<List<Note>> descDateAllNotes;
 
@@ -18,6 +19,7 @@ public class NoteRepository {
         AppRoomDatabase db = AppRoomDatabase.getInstance(application);
         mNoteDao = db.noteDao();
         mAllNotes = mNoteDao.getAllNotes();
+        mAllNotesDesc = mNoteDao.getAllNotesDesc();
         ascDateAllNotes = mNoteDao.getAllNotesByDateAsc();
         descDateAllNotes = mNoteDao.getAllNotesByDateDesc();
     }
@@ -25,6 +27,10 @@ public class NoteRepository {
     // Wrapper to get notes
     LiveData<List<Note>> getAllNotes() {
         return mAllNotes;
+    }
+
+    LiveData<List<Note>> getAllNotesDesc() {
+        return mAllNotesDesc;
     }
 
     // Wrapper to get notes ordered asc by date created at

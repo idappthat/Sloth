@@ -18,7 +18,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.List;
@@ -28,20 +27,20 @@ import me.koltensturgill.sloth.Model.NotesViewModel;
 
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
+{
 
-    Activity activity;
     public static final int NEW_NOTE_ACTIVITY_REQUEST_CODE = 1;
-    EditText editText;
 
     private NotesViewModel notesViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Utils.loadPreferenceFromFile(this);
         Utils.setThemeToActivity(this, true);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        activity = this;
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -75,9 +74,9 @@ public class MainActivity extends AppCompatActivity
 
 
         // Create an observer, and update our adapter
-
-        if (Utils.getSorter().equals("id"))
+        if (Utils.getSorter().equals("title"))
         {
+            if (Utils.getOrder().equals("ASC"))
             notesViewModel.getAllNotes().observe(this, new Observer<List<Note>>()
             {
                 @Override
@@ -86,6 +85,17 @@ public class MainActivity extends AppCompatActivity
                     adapter.setNotes(notes);
                 }
             });
+            else
+            {
+                notesViewModel.getAllNotesDesc().observe(this, new Observer<List<Note>>()
+                {
+                    @Override
+                    public void onChanged(@Nullable List<Note> notes)
+                    {
+                        adapter.setNotes(notes);
+                    }
+                });
+            }
         }
         else if (Utils.getSorter().equals("created_at"))
         {
@@ -188,6 +198,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+
     //onRestart method recreates main activity so when theme is changed in settings, activity recreates so new theme can be applied from Utils
     @Override
     protected void onRestart()
@@ -195,4 +206,5 @@ public class MainActivity extends AppCompatActivity
         super.onRestart();
         recreate();
     }
+
 }

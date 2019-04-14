@@ -10,6 +10,7 @@ import java.util.List;
 public class NotesViewModel extends AndroidViewModel {
     private NoteRepository mRepository;
     private LiveData<List<Note>> mAllNotes;
+    private LiveData<List<Note>> mAllNotesDesc;
     private LiveData<List<Note>> ascDateAllNotes;
     private LiveData<List<Note>> descDateAllNotes;
 
@@ -17,6 +18,7 @@ public class NotesViewModel extends AndroidViewModel {
         super(application);
         mRepository = new NoteRepository(application);
         mAllNotes = mRepository.getAllNotes();
+        mAllNotesDesc = mRepository.getAllNotesDesc();
         ascDateAllNotes = mRepository.getAllNotesByDateAsc();
         descDateAllNotes = mRepository.getAllNotesByDateDesc();
     }
@@ -24,6 +26,10 @@ public class NotesViewModel extends AndroidViewModel {
     // Getters to abstract request from UI
     public LiveData<List<Note>> getAllNotes() {
         return mAllNotes;
+    }
+
+    public LiveData<List<Note>> getAllNotesDesc() {
+        return mAllNotesDesc;
     }
 
     public LiveData<List<Note>> getAscDateAllNotes()

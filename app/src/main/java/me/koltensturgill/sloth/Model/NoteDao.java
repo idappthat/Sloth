@@ -29,6 +29,10 @@ public interface NoteDao {
             "")
     LiveData<List<Note>> getAllNotes();
 
+    @Query("SELECT * from notes_table ORDER BY id DESC" +
+            "")
+    LiveData<List<Note>> getAllNotesDesc();
+
     @Query("SELECT * from notes_table ORDER BY created_at ASC " +
             "")
     LiveData<List<Note>> getAllNotesByDateAsc();
