@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.Date;
 import java.util.List;
 
 import me.koltensturgill.sloth.Model.Note;
@@ -18,11 +19,13 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteVi
 
         private final TextView noteTitleView;
         private final TextView noteBodyView;
+        private TextView tvTime;
 
         private NoteViewHolder(View itemView){
             super(itemView);
             noteTitleView = itemView.findViewById(R.id.tv_note_title);
             noteBodyView = itemView.findViewById(R.id.tv_note_body);
+            tvTime = itemView.findViewById(R.id.tvTime);
         }
     }
 
@@ -47,9 +50,9 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteListAdapter.NoteVi
         // Bind our items to the text views
         if(mNotes != null){
             Note curr = mNotes.get(position);
-//            holder.noteTitleView.setText(Converter.dateToString(curr.getCreated_at()));
             holder.noteTitleView.setText(curr.getTitle());
             holder.noteBodyView.setText(curr.getBody());
+            holder.tvTime.setText(Utils.getOffsetTime(new Date(), curr.getCreated_at()));
         } else {
             holder.noteBodyView.setText("Add a new note first!");
         }

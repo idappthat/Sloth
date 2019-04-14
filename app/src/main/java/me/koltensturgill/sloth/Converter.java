@@ -51,4 +51,10 @@ public class Converter
             return simpleDateFormat.format(date);
         }
     }
+
+    public static Long dateToLong(Date date)
+    {
+        return Long.parseLong(dateToString(date));
+    }
+
 }

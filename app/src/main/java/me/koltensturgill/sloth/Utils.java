@@ -9,6 +9,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
+import javax.xml.datatype.Duration;
+
 import static android.content.Context.MODE_PRIVATE;
 
 
@@ -123,4 +130,29 @@ public class Utils
         }
     }
 
+    public static String getOffsetTime(Date current, Date created_at)
+    {
+        Long present = current.getTime();
+        Long created = created_at.getTime();
+
+        Long offset = present - created;
+        Long l = 0L;
+        if ((l =  TimeUnit.MILLISECONDS.toDays(offset)) != 0)
+        {
+            return (l.toString() + "d");
+        }
+        else if ((l = TimeUnit.MILLISECONDS.toHours(offset)) != 0)
+        {
+            return l.toString() + "h";
+        }
+        else if ((l = TimeUnit.MILLISECONDS.toMinutes(offset)) != 0)
+        {
+            return l.toString() + "m";
+        }
+        else if ((l = TimeUnit.MILLISECONDS.toSeconds(offset)) != 0)
+        {
+            return l.toString() + "s";
+        }
+        return null;
+    }
 }
