@@ -10,17 +10,39 @@ public class NoteRepository {
     // Member variables
     private NoteDao mNoteDao;
     private LiveData<List<Note>> mAllNotes;
+    private LiveData<List<Note>> mAllNotesDesc;
+    private LiveData<List<Note>> ascDateAllNotes;
+    private LiveData<List<Note>> descDateAllNotes;
 
     // Constructor
     NoteRepository(Application application){
         AppRoomDatabase db = AppRoomDatabase.getInstance(application);
         mNoteDao = db.noteDao();
         mAllNotes = mNoteDao.getAllNotes();
+        mAllNotesDesc = mNoteDao.getAllNotesDesc();
+        ascDateAllNotes = mNoteDao.getAllNotesByDateAsc();
+        descDateAllNotes = mNoteDao.getAllNotesByDateDesc();
     }
 
     // Wrapper to get notes
     LiveData<List<Note>> getAllNotes() {
         return mAllNotes;
+    }
+
+    LiveData<List<Note>> getAllNotesDesc() {
+        return mAllNotesDesc;
+    }
+
+    // Wrapper to get notes ordered asc by date created at
+    LiveData<List<Note>> getAllNotesByDateAsc()
+    {
+        return ascDateAllNotes;
+    }
+
+    // Wrapper to get notes ordered desc by date created at
+    LiveData<List<Note>> getAllNotesByDateDesc()
+    {
+        return descDateAllNotes;
     }
 
     // Wrapper function for inserting

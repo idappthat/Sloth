@@ -5,9 +5,11 @@
     <color name="colorAccent">#3B4859</color>
     <color name="colorDarkBack">#202020</color>
     <color name="colorPopupBack">#263238</color>
-    <color name="colorText">#EAFFFF</color>
+    <color name="colorText">#CCDCDC</color>
     <color name="colorTextPrimary">#FFDDFF</color>
     <color name="colorTextHint">#FFFF00</color>
     <color name="colorDPrimary">#455A64</color>
     <color name="colorDPrimaryLight">#718792</color>
+    <color name="colorCardBackLight">#F6F6F6</color>
+    <color name="colorCardBackDark">#252525</color>
 </resources>

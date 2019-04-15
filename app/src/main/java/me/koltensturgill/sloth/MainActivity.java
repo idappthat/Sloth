@@ -1,6 +1,5 @@
 package me.koltensturgill.sloth;
 
-import android.app.Activity;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
@@ -18,7 +17,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.List;
@@ -28,20 +26,20 @@ import me.koltensturgill.sloth.Model.NotesViewModel;
 
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener
+{
 
-    Activity activity;
     public static final int NEW_NOTE_ACTIVITY_REQUEST_CODE = 1;
-    EditText editText;
 
     private NotesViewModel notesViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Utils.loadPreferenceFromFile(this);
         Utils.setThemeToActivity(this, true);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        activity = this;
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -74,12 +72,56 @@ public class MainActivity extends AppCompatActivity
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Create an observer, and update our adapter
-        notesViewModel.getAllNotes().observe(this, new Observer<List<Note>>() {
-            @Override
-            public void onChanged(@Nullable List<Note> notes) {
-                adapter.setNotes(notes);
+        if (Utils.getSorter().equals("title"))
+        {
+            if (Utils.getOrder().equals("ASC"))
+            notesViewModel.getAllNotes().observe(this, new Observer<List<Note>>()
+            {
+                @Override
+                public void onChanged(@Nullable List<Note> notes)
+                {
+                    adapter.setNotes(notes);
+                }
+            });
+            else
+            {
+                notesViewModel.getAllNotesDesc().observe(this, new Observer<List<Note>>()
+                {
+                    @Override
+                    public void onChanged(@Nullable List<Note> notes)
+                    {
+                        adapter.setNotes(notes);
+                    }
+                });
             }
-        });
+        }
+        else if (Utils.getSorter().equals("created_at"))
+        {
+            //for dates, do it opposite since we will display current time - created
+            //so if asc - get it in desc and vice versa
+            if (Utils.getOrder().equals("ASC"))
+            {
+                notesViewModel.getDescDateAllNotes().observe(this, new Observer<List<Note>>()
+                {
+                    @Override
+                    public void onChanged(@Nullable List<Note> notes)
+                    {
+                        adapter.setNotes(notes);
+                    }
+                });
+            }
+            else
+            {
+                notesViewModel.getAscDateAllNotes().observe(this, new Observer<List<Note>>()
+                {
+                    @Override
+                    public void onChanged(@Nullable List<Note> notes)
+                    {
+                        adapter.setNotes(notes);
+                    }
+                });
+            }
+        }
     }
 
     @Override
@@ -190,4 +232,5 @@ public class MainActivity extends AppCompatActivity
         super.onRestart();
         recreate();
     }
+
 }
