@@ -9,13 +9,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
-
-import javax.xml.datatype.Duration;
-
 import static android.content.Context.MODE_PRIVATE;
 
 

@@ -1,6 +1,5 @@
 package me.koltensturgill.sloth;
 
-import android.app.Activity;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
@@ -72,7 +71,6 @@ public class MainActivity extends AppCompatActivity
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
         // Create an observer, and update our adapter
         if (Utils.getSorter().equals("title"))
         {
@@ -99,9 +97,11 @@ public class MainActivity extends AppCompatActivity
         }
         else if (Utils.getSorter().equals("created_at"))
         {
+            //for dates, do it opposite since we will display current time - created
+            //so if asc - get it in desc and vice versa
             if (Utils.getOrder().equals("ASC"))
             {
-                notesViewModel.getAscDateAllNotes().observe(this, new Observer<List<Note>>()
+                notesViewModel.getDescDateAllNotes().observe(this, new Observer<List<Note>>()
                 {
                     @Override
                     public void onChanged(@Nullable List<Note> notes)
@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity
             }
             else
             {
-                notesViewModel.getDescDateAllNotes().observe(this, new Observer<List<Note>>()
+                notesViewModel.getAscDateAllNotes().observe(this, new Observer<List<Note>>()
                 {
                     @Override
                     public void onChanged(@Nullable List<Note> notes)

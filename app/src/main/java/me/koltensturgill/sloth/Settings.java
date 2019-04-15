@@ -67,24 +67,6 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
         }
 
         spnSorter.setOnItemSelectedListener(this);
-//        spnSorter.setOnItemClickListener(new AdapterView.OnItemClickListener()
-//        {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
-//            {
-//                String s = adapterView.getItemAtPosition(pos).toString();
-//                if (s.equals("Sort By Date"))
-//                {
-//                    spnSorter.setSelection(spnAdapter.getPosition(s));
-//                    Utils.setSorter("created_at");
-//                }
-//                else if (s.equals("Sort By Title"))
-//                {
-//                    spnSorter.setSelection(spnAdapter.getPosition(s));
-//                    Utils.setSorter("title");
-//                }
-//            }
-//        });
 
 
         rdGrpOrders = (RadioGroup) findViewById(R.id.rdGrpOrders);
