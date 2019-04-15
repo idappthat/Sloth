@@ -184,20 +184,46 @@ public class MainActivity extends AppCompatActivity
 
             if (requestCode == NEW_NOTE_ACTIVITY_REQUEST_CODE  && resultCode == RESULT_OK) {
                 String extra = data.getStringExtra(Editor.EXTRA_EDITOR);
-                /*
-                    TODO: String parsing magic, might need to overload the Note class (more)
-                 */
-                Note note = new Note("hello", extra);
+                //Determine the note title from the body of the note.
+                String title = getNoteTitle(extra);
+                //Chop the title off the string before creating a note from it.
+                extra = extra.substring(title.length());
+                Note note = new Note(title, extra);
                 notesViewModel.insert(note);
             } else {
                 Toast.makeText(getApplicationContext(), "Not saved", Toast.LENGTH_SHORT).show();
             }
         } catch (Exception ex) {
             Toast.makeText(this, ex.toString(),
-                    Toast.LENGTH_SHORT).show();
+                    Toast.LENGTH_LONG).show();
         }
     }
 
+    protected String getNoteTitle(String note){
+        int firstNewLine = note.indexOf('\n');
+        //Hardcoded max title length, probably a better way of doing this.
+        int maxTitleLength = 30;
+
+        String title;
+        //No newline character found
+        if(firstNewLine == -1){
+            //Dont want to control the length of our title
+            if(note.length() > maxTitleLength) {
+                title = note.substring(0, maxTitleLength);
+            }
+            else{ //else one line note, set title to the note itself.
+                title = note;
+            }
+        //Newline Character found within max title limit
+        } else {
+            title = note.substring(0, firstNewLine);
+        }
+        //if first character is not a hashtag, insert one at the beginning
+        if(title.charAt(0) != '#'){
+            title = "#" + title;
+        }
+        return title;
+    }
 
     //onRestart method recreates main activity so when theme is changed in settings, activity recreates so new theme can be applied from Utils
     @Override
